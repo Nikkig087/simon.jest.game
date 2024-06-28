@@ -33,5 +33,8 @@ describe("game object contains correct keys", ()=> {
         // we are testing if the game object contains a key called choices
         expect("choices" in game).toBe(true)
     })
+    test("choices contains correct ids",()=>{
+        expect(game.choices).toEqual(["button1","button2","button3","button4"]) //array to have the values of button1,button2...
+    })
 })
 

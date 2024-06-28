@@ -2,7 +2,7 @@ let game = {
     score:0,
     currentGame:[], //array
     playerMoves:[], //array
-    choices:[] //array
+    choices:["button1","button2","button3","button4"] //array
 
 }
 
