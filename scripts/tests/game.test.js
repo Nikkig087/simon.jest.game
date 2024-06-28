@@ -1,7 +1,7 @@
 
 // this beforeAll code is the same for every html file that we want to load into the DOM we just might want to change file name
 
-const {game,newGame,showScore,addTurn} = require("../game")
+const {game,newGame,showScore,addTurn,lightsOn} = require("../game")
 
 
 beforeAll(()=> {
@@ -71,6 +71,31 @@ describe("newGame works correctly",()=>{
     expect(document.getElementById("score").innerText).toEqual(0)})
 
     })
+
+describe("gameplay works correctly",()=>{
+    beforeEach(()=>{
+        game.score = 0;
+        game.currentGame = []
+        game.playerMoves = []
+        addTurn() // to add a new turn to our current game
+    });
+    afterEach(()=>{
+      game.score = 0;
+      game.currentGame = []
+      game.playerMoves =[]  
+    });
+
+    test("addTurn addes a new turn to the game",()=>{
+        addTurn()
+        expect(game.currentGame.length).toBe(2)
+    })
+
+    test("should add the correct class to our button to light it up",()=>{
+        let button = document.getElementById(game.currentGame[0]);
+        lightsOn(game.currentGame[0])//get the element at index 0
+        expect(button.classList).toContain("light")
+    })
+})
 
 
 
