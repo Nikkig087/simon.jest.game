@@ -1,7 +1,7 @@
 
 // this beforeAll code is the same for every html file that we want to load into the DOM we just might want to change file name
 
-const {game,newGame,showScore,addTurn,lightsOn} = require("../game")
+const {game,newGame,showScore,addTurn,lightsOn,showTurns} = require("../game")
 
 
 beforeAll(()=> {
@@ -37,6 +37,10 @@ describe("game object contains correct keys", ()=> {
     test("choices contains correct ids",()=>{
         expect(game.choices).toEqual(["button1","button2","button3","button4"]) //array to have the values of button1,button2...
     })
+
+    test("turnNumber Key exists", () => {
+        expect ("turnNumber" in game).toBe(true)
+    })
 })
 
 describe("newGame works correctly",()=>{
@@ -67,10 +71,15 @@ describe("newGame works correctly",()=>{
         expect(game.playerMoves.length).toBe(0)
         });
 
-    test("should display 0 for the element with the id of score ",()=>{
-    expect(document.getElementById("score").innerText).toEqual(0)})
+    test("expect data-listener to be true",()=>{
+    const elements = document.getElementsByClassName("circle")
+    for (let element of elements){
+        expect(element.getAttribute("data-listener")).toEqual("true")
+    }
+})
+    });
 
-    })
+        
 
 describe("gameplay works correctly",()=>{
     beforeEach(()=>{
@@ -94,6 +103,12 @@ describe("gameplay works correctly",()=>{
         let button = document.getElementById(game.currentGame[0]);
         lightsOn(game.currentGame[0])//get the element at index 0
         expect(button.classList).toContain("light")
+    })
+
+    test("showTurns should update the game.turnNumber",()=>{
+            game.turnNumber = 42
+            showTurns()
+            expect(game.turnNumber).toBe(0)
     })
 })
 
