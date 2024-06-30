@@ -69,8 +69,26 @@ function showTurns(){
  */
 
 
+    function playerTurn() {
+        let i = game.playerMoves.length - 1; 
+        /**Get the index  of the last element from our playerMoves array.  
+        Because what we're going to do is compare that  with the same index in the current game array,  
+        if our player gets the answers  correct then these two should match.
+        This is convenient because it means that we can  just compare elements at the same index number.   */
+        if (game.currentGame[i] === game.playerMoves[i]) {
+            if (game.currentGame.length === game.playerMoves.length) {
+                game.score++;
+                showScore();
+                addTurn();
+            }
+        } else {
+            alert("Wrong move!");
+            newGame();
+        }
+    }
 
-module.exports = {game,newGame,showScore,addTurn,lightsOn,showTurns} 
+
+module.exports = {game,newGame,showScore,addTurn,lightsOn,showTurns,playerTurn} 
 
 // we will be exporting more than one object so they need to go in curley braces, we need to import this in our game.test.js also, its the first line
 
