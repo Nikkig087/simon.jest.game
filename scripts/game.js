@@ -13,11 +13,16 @@ function newGame() {
     game.currentGame = [];
     for (let circle of document.getElementsByClassName("circle")){
         if (circle.getAttribute("data-listener")!== "true") {
-            circle.addEventListener("click",(e) => {
+            circle.addEventListener("click",(e) => { if (game.currentGame.length > 0 && !game.turnInProgress) 
+                //above only excep a click if the length of the current game array isnt 0 and a game is not in progress
+
+                {
                 let move = e.target.getAttribute("id")
+                game.lastButton = move; //store move in game.last button
                 lightsOn(move)
                 game.playerMoves.push(move)
                 playerTurn()
+            }
             })
             circle.setAttribute("data-listener","true")
     }
@@ -55,12 +60,14 @@ function lightsOn(circ){
 }
 
 function showTurns(){
+    game.turnInProgress = true
     game.turnNumber = 0
     let turns = setInterval(function() {
         lightsOn(game.currentGame[game.turnNumber])
         game.turnNumber++
         if(game.turnNumber>=game.currentGame.length){
             clearInterval(turns)
+            game.turnInProgress=false
         }
     },800)
 }
